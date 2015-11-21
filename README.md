@@ -3,7 +3,7 @@
 CS/IS 232 – Oracle/SQL
 Fall 2015
 
-Students:   
+Student:   
 Navid Roohi 
 
 
