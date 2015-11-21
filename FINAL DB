@@ -1,0 +1,272 @@
+-- MySQL dump 10.13  Distrib 5.6.26, for Win64 (x86_64)
+--
+-- Host: localhost    Database: house_design
+-- ------------------------------------------------------
+-- Server version	5.6.26-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `address`
+--
+
+DROP TABLE IF EXISTS `address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `address` (
+  `Address_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `person_person_id` int(11) DEFAULT NULL,
+  `City` varchar(45) NOT NULL,
+  `street_1` varchar(45) NOT NULL,
+  `street_2` varchar(45) DEFAULT NULL,
+  `state` char(2) NOT NULL,
+  `zip` varchar(45) NOT NULL,
+  PRIMARY KEY (`Address_ID`),
+  KEY `fk_Address_Person1_idx` (`person_person_id`),
+  CONSTRAINT `fk_Address_Person1` FOREIGN KEY (`person_person_id`) REFERENCES `person` (`Person_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `address`
+--
+
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (1,1,'pasadena','445 garfield ave',NULL,'CA','91101'),(2,2,'west wood',' canada ave, near gas station',NULL,'CA','21101'),(3,3,'Wood','grand ave, pizza square',NULL,'NY','87678'),(4,4,'Arcadia','jungle street, pizza square',NULL,'NY','45678'),(5,5,'Pasadena','south pasadena road, unit 316','after pizza hot','CA','91030'),(6,8,'pasadena','345, south pasadena ave, amound road','gallen st','CA','91030'),(7,9,'pasadena','684 south pasadena ave, amound road',NULL,'CA','91030');
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cost`
+--
+
+DROP TABLE IF EXISTS `cost`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cost` (
+  `Cost_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `design` int(11) NOT NULL,
+  `construction` int(11) NOT NULL,
+  PRIMARY KEY (`Cost_ID`),
+  KEY `fk_Cost_House1_idx` (`Cost_ID`),
+  CONSTRAINT `fk_Cost_House1` FOREIGN KEY (`Cost_ID`) REFERENCES `house` (`House_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cost`
+--
+
+LOCK TABLES `cost` WRITE;
+/*!40000 ALTER TABLE `cost` DISABLE KEYS */;
+INSERT INTO `cost` VALUES (1,250000,1000000),(2,50000,230000),(3,150000,430000),(4,10000,1500000),(5,140000,320000),(6,450000,650000),(7,500,85000);
+/*!40000 ALTER TABLE `cost` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `features`
+--
+
+DROP TABLE IF EXISTS `features`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `features` (
+  `Features_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `House_House_ID` int(11) DEFAULT NULL,
+  `Pool` tinyint(1) NOT NULL,
+  `BedRoom` int(11) DEFAULT NULL,
+  `BathRoom` int(11) DEFAULT NULL,
+  `Storage` int(11) DEFAULT NULL,
+  `basement` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Features_ID`),
+  UNIQUE KEY `Features_ID_UNIQUE` (`Features_ID`),
+  KEY `fk_Features_House1_idx` (`House_House_ID`),
+  CONSTRAINT `fk_Features_House1` FOREIGN KEY (`House_House_ID`) REFERENCES `house` (`House_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `features`
+--
+
+LOCK TABLES `features` WRITE;
+/*!40000 ALTER TABLE `features` DISABLE KEYS */;
+INSERT INTO `features` VALUES (1,1,1,4,2,2,1),(2,2,0,5,3,1,0),(3,3,1,3,1,3,1),(4,4,0,5,2,2,0),(5,5,1,3,3,3,0);
+/*!40000 ALTER TABLE `features` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `house`
+--
+
+DROP TABLE IF EXISTS `house`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `house` (
+  `House_ID` int(11) NOT NULL,
+  `Address_Address_ID` int(11) NOT NULL,
+  `Person_Person_ID` int(11) DEFAULT NULL,
+  `Land_Area` int(11) NOT NULL,
+  `Building_Area` int(11) NOT NULL,
+  `Floor` int(11) NOT NULL,
+  `Parking` int(11) NOT NULL,
+  `Basement_Area` int(11) NOT NULL,
+  `Landscape_Area` int(11) DEFAULT NULL,
+  PRIMARY KEY (`House_ID`),
+  UNIQUE KEY `Size_UNIQUE` (`Building_Area`),
+  KEY `fk_House_Address1_idx` (`Address_Address_ID`),
+  KEY `fk_House_Person1_idx` (`Person_Person_ID`),
+  CONSTRAINT `fk_House_Address1` FOREIGN KEY (`Address_Address_ID`) REFERENCES `address` (`Address_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_House_Person1` FOREIGN KEY (`Person_Person_ID`) REFERENCES `person` (`Person_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `house`
+--
+
+LOCK TABLES `house` WRITE;
+/*!40000 ALTER TABLE `house` DISABLE KEYS */;
+INSERT INTO `house` VALUES (1,1,1,8000,4000,2,4,800,1500),(2,2,2,6547,3200,3,3,0,650),(3,3,3,3547,2300,3,3,0,150),(4,4,4,5547,4300,2,8,900,1600),(5,5,5,8784,3645,1,2,400,2330),(6,6,8,6345,3456,3,6,350,2600),(7,7,9,1345,656,1,1,0,150);
+/*!40000 ALTER TABLE `house` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `image`
+--
+
+DROP TABLE IF EXISTS `image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image` (
+  `Image_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `House_House_ID` int(11) NOT NULL,
+  `Name` varchar(45) DEFAULT NULL,
+  `image` longblob,
+  PRIMARY KEY (`Image_ID`),
+  KEY `fk_Image_House1_idx` (`House_House_ID`),
+  CONSTRAINT `fk_Image_House1` FOREIGN KEY (`House_House_ID`) REFERENCES `house` (`House_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image`
+--
+
+LOCK TABLES `image` WRITE;
+/*!40000 ALTER TABLE `image` DISABLE KEYS */;
+INSERT INTO `image` VALUES (1,1,'MY HOME','C:sql-calss-imageimage1'),(2,2,'DREAM HOME','C:sql-calss-imageimage2'),(3,3,'GRAND','C:sql-calss-imageimage3'),(4,4,'HALO HALO HOUSE','C:sql-calss-imageimage4'),(5,5,'WHERE IS MY HOME ?','C:sql-calss-imageimage5'),(6,7,'FOREST','c:sql-calss-imageimage6'),(7,6,'KHIALI ','c:sql-calss-imageimage7');
+/*!40000 ALTER TABLE `image` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `person`
+--
+
+DROP TABLE IF EXISTS `person`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `person` (
+  `Person_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `phone_number` varchar(15) DEFAULT NULL,
+  `website` varchar(45) DEFAULT NULL,
+  `Architect` tinyint(1) DEFAULT NULL,
+  `Contractor` tinyint(1) DEFAULT NULL,
+  `Residence` tinyint(1) DEFAULT NULL,
+  `Client` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`Person_ID`),
+  UNIQUE KEY `Person_ID_UNIQUE` (`Person_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `person`
+--
+
+LOCK TABLES `person` WRITE;
+/*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` VALUES (1,'NAVID','ROOHI','4242831387','GIGARCHITECTURE.COM',1,0,0,0),(2,'NIMA','JASON','758482394','GIGARCHITECTURE.COM',0,1,1,0),(3,'VICTORIA','WANG','758482344','COOL.COM',1,1,1,1),(4,'Axel Gilliam','Turner',NULL,NULL,NULL,NULL,NULL,NULL),(5,'Brett Underwood','Carson',NULL,NULL,NULL,NULL,NULL,NULL),(6,'JACK','SMIT','456765345','GOOGLE.COM',1,0,0,0),(7,'MEHDI','KARMI','234765345','COOL.COM',1,1,1,1),(8,'JAHANGIR','TOGROLIAN','234765245','FREE.COM',0,0,1,0),(9,'JHON','CATLDO','456765245','CATALDO.COM',1,0,0,1);
+/*!40000 ALTER TABLE `person` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `idproduct` int(11) DEFAULT NULL,
+  UNIQUE KEY `idproduct_UNIQUE` (`idproduct`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `regulation`
+--
+
+DROP TABLE IF EXISTS `regulation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `regulation` (
+  `Regulation_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `House_House_ID` int(11) NOT NULL,
+  `Front_SetBack` double DEFAULT NULL,
+  `SetBack` double DEFAULT NULL,
+  `Height` double DEFAULT NULL,
+  `Density` double DEFAULT NULL,
+  `Orientation` varchar(45) DEFAULT NULL,
+  `ADA` tinyint(1) DEFAULT NULL,
+  `Car_Slops` double DEFAULT NULL,
+  `Elevator` tinyint(1) DEFAULT NULL,
+  `Stair` tinyint(1) DEFAULT NULL,
+  `Fire_walls` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Regulation_ID`),
+  UNIQUE KEY `Building_Code_ID_UNIQUE` (`Regulation_ID`),
+  KEY `fk_Regulation_House1_idx` (`House_House_ID`),
+  CONSTRAINT `fk_Regulation_House1` FOREIGN KEY (`House_House_ID`) REFERENCES `house` (`House_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `regulation`
+--
+
+LOCK TABLES `regulation` WRITE;
+/*!40000 ALTER TABLE `regulation` DISABLE KEYS */;
+INSERT INTO `regulation` VALUES (1,1,10.5,8,40,1.2,'NORTH-SOUTH',1,1.5,0,1,100),(2,2,20.5,18,40,1.3,'WEST-EAST',1,1.5,0,1,100),(3,3,6.5,45,25,1.1,'WEST-EAST',0,1.1,0,1,85),(4,4,1.5,23,25,0.1,'NORTH-SOUTH',1,1.2,1,0,95),(5,5,35,10,45,2,'EAST-WEST',1,1.4,0,0,100),(6,7,32.3,15,22,1,'NORTH-SOUTH',1,1.1,1,1,100),(7,6,3,5,22,1,'EAST-WEST',0,1.3,1,1,120);
+/*!40000 ALTER TABLE `regulation` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-10-23 21:59:44
