@@ -20,7 +20,7 @@ Goal:
 -	Connecting Architects to Clients.
 -	Reduce Design Fee and Time.
 -	Reduce Housing price at the End.
--	Create a Nation and Global Model.
+-	Create a National and Global Model.
 
 Solution:
 
