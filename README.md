@@ -1,7 +1,7 @@
 # House_Design_DataBase
 
 CS/IS 232 – Oracle/SQL
- Fall 2015
+Fall 2015
 Students:   
 Navid Roohi 
 
