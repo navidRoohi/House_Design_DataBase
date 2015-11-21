@@ -1,0 +1,205 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema House_Design
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema House_Design
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `House_Design` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `House_Design` ;
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Person`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Person` (
+  `Person_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `name` VARCHAR(45) NULL COMMENT '',
+  `last_name` VARCHAR(45) NULL COMMENT '',
+  `phone_number` VARCHAR(15) NULL COMMENT '',
+  `website` VARCHAR(45) NULL COMMENT '',
+  `Architect` TINYINT(1) NULL COMMENT '',
+  `Contractor` TINYINT(1) NULL COMMENT '',
+  `Residence` TINYINT(1) NULL COMMENT '',
+  `Client` TINYINT(1) NULL COMMENT '',
+  PRIMARY KEY (`Person_ID`)  COMMENT '',
+  UNIQUE INDEX `Person_ID_UNIQUE` (`Person_ID` ASC)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Address` (
+  `Address_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `Person_Person_ID` INT NOT NULL COMMENT '',
+  `City` VARCHAR(45) NOT NULL COMMENT '',
+  `street_1` VARCHAR(45) NOT NULL COMMENT '',
+  `street_2` VARCHAR(45) NULL COMMENT '',
+  `state` CHAR(2) NOT NULL COMMENT '',
+  `zip` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`Address_ID`)  COMMENT '',
+  INDEX `fk_Address_Person1_idx` (`Person_Person_ID` ASC)  COMMENT '',
+  CONSTRAINT `fk_Address_Person1`
+    FOREIGN KEY (`Person_Person_ID`)
+    REFERENCES `House_Design`.`Person` (`Person_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`House`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`House` (
+  `House_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `Address_Address_ID` INT NOT NULL COMMENT '',
+  `Person_Person_ID` INT NOT NULL COMMENT '',
+  `Land_Area` INT NOT NULL COMMENT '',
+  `Building_Area` INT NOT NULL COMMENT '',
+  `Floor` INT NOT NULL COMMENT '',
+  `Parking` INT NOT NULL COMMENT '',
+  `Basement_Area` INT NOT NULL COMMENT '',
+  `Landscape_Area` INT NULL COMMENT '',
+  PRIMARY KEY (`House_ID`)  COMMENT '',
+  INDEX `fk_House_Address1_idx` (`Address_Address_ID` ASC)  COMMENT '',
+  INDEX `fk_House_Person1_idx` (`Person_Person_ID` ASC)  COMMENT '',
+  UNIQUE INDEX `Person_Person_ID_UNIQUE` (`Person_Person_ID` ASC)  COMMENT '',
+  CONSTRAINT `fk_House_Address1`
+    FOREIGN KEY (`Address_Address_ID`)
+    REFERENCES `House_Design`.`Address` (`Address_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_House_Person1`
+    FOREIGN KEY (`Person_Person_ID`)
+    REFERENCES `House_Design`.`Person` (`Person_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Image`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Image` (
+  `Image_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `House_House_ID` INT NOT NULL COMMENT '',
+  `Name` VARCHAR(45) NULL COMMENT '',
+  `image` LONGBLOB NULL COMMENT '',
+  PRIMARY KEY (`Image_ID`)  COMMENT '',
+  INDEX `fk_Image_House1_idx` (`House_House_ID` ASC)  COMMENT '',
+  CONSTRAINT `fk_Image_House1`
+    FOREIGN KEY (`House_House_ID`)
+    REFERENCES `House_Design`.`House` (`House_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`product` (
+  `idproduct` INT NULL COMMENT '',
+  UNIQUE INDEX `idproduct_UNIQUE` (`idproduct` ASC)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`frog`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`frog` (
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Fish`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Fish` (
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`table1`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`table1` (
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Regulation`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Regulation` (
+  `Regulation_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `House_House_ID` INT NOT NULL COMMENT '',
+  `Front_SetBack` DOUBLE NULL COMMENT '',
+  `SetBack` DOUBLE NULL COMMENT '',
+  `Height` DOUBLE NULL COMMENT '',
+  `Density` DOUBLE NULL COMMENT '',
+  `Orientation` VARCHAR(45) NULL COMMENT '',
+  `ADA` TINYINT(1) NULL COMMENT '',
+  `Car_Slops` DOUBLE NULL COMMENT '',
+  `Elevator` TINYINT(1) NULL COMMENT '',
+  `Stair` TINYINT(1) NULL COMMENT '',
+  `Fire_walls` INT NULL COMMENT '',
+  PRIMARY KEY (`Regulation_ID`)  COMMENT '',
+  UNIQUE INDEX `Building_Code_ID_UNIQUE` (`Regulation_ID` ASC)  COMMENT '',
+  INDEX `fk_Regulation_House1_idx` (`House_House_ID` ASC)  COMMENT '',
+  CONSTRAINT `fk_Regulation_House1`
+    FOREIGN KEY (`House_House_ID`)
+    REFERENCES `House_Design`.`House` (`House_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Cost`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Cost` (
+  `Cost_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `design` INT NOT NULL COMMENT '',
+  `construction` INT NOT NULL COMMENT '',
+  INDEX `fk_Cost_House1_idx` (`Cost_ID` ASC)  COMMENT '',
+  PRIMARY KEY (`Cost_ID`)  COMMENT '',
+  CONSTRAINT `fk_Cost_House1`
+    FOREIGN KEY (`Cost_ID`)
+    REFERENCES `House_Design`.`House` (`House_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `House_Design`.`Features`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `House_Design`.`Features` (
+  `Features_ID` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `House_House_ID` INT NOT NULL COMMENT '',
+  `Pool` TINYINT(1) NOT NULL COMMENT '',
+  `BathRoom` INT NULL COMMENT '',
+  `BedRoom` INT NULL COMMENT '',
+  `Storage` INT NULL COMMENT '',
+  `basement` TINYINT(1) NOT NULL COMMENT '',
+  PRIMARY KEY (`Features_ID`)  COMMENT '',
+  UNIQUE INDEX `Features_ID_UNIQUE` (`Features_ID` ASC)  COMMENT '',
+  INDEX `fk_Features_House1_idx` (`House_House_ID` ASC)  COMMENT '',
+  CONSTRAINT `fk_Features_House1`
+    FOREIGN KEY (`House_House_ID`)
+    REFERENCES `House_Design`.`House` (`House_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
