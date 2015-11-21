@@ -13,9 +13,7 @@ Problem:
 -	Takes Long Time to Design a House with all Approval.
 Example:
 
-( 1 million$ house in LA :
-- Tasks about one year to design and get Approve from Building department.
--   Cost about 50,000 $ for design. )
+( 1 million$ house in LA :Tasks about one year to design and get Approve from Building department. Cost about 50,000 $ for design. )
    
 Goal:
 
