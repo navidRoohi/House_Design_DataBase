@@ -1,10 +1,5 @@
 # House_Design_DataBase
 
-CS/IS 232 – Oracle/SQL
-Fall 2015
-
-Student:   
-Navid Roohi 
 
 
 Problem:
